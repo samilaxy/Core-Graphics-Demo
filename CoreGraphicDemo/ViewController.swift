@@ -11,13 +11,22 @@ class ViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view.
-		let customView = CustomView()
+			// Do any additional setup after loading the view.
 		let youtubeLogo = YouTubeLogoView()
-//		customView.frame = CGRect(x: 0 , y: 0, width: 100, height: 100)
-//		view.addSubview(customView)
-		youtubeLogo.frame = CGRect(x: view.bounds.width / 3 , y: view.bounds.height / 3, width:200, height: 100)
+//		let facebookLogoView = FacebookLogoView()
+//		let smileyFaceView = SmileyFaceView()
+		let logoWidth: CGFloat = 100
+		let logoHeight: CGFloat = 80
+		
+		let centerX = view.bounds.width / 2 - logoWidth / 2
+		let centerY = view.bounds.height / 2 - logoHeight / 2
+		
+		youtubeLogo.frame = CGRect(x: centerX, y: 80, width: logoWidth, height: logoHeight)
 		view.addSubview(youtubeLogo)
+//		facebookLogoView.frame = CGRect(x:  centerX, y: 180, width: logoWidth, height: logoHeight)
+//		view.addSubview(facebookLogoView)
+//		smileyFaceView.frame = CGRect(x: centerX, y: 280, width: 100, height: 100)
+//		view.addSubview(smileyFaceView)
 	}
 
 }
@@ -51,20 +60,19 @@ class CustomView: UIView {
 	}
 }
 
-
 class YouTubeLogoView: UIView {
 	
 	override func draw(_ rect: CGRect) {
 		guard let context = UIGraphicsGetCurrentContext() else { return }
 		
 			// Set the background color of the view
-		UIColor.white.setFill()
+		UIColor.red.setFill()
 		context.fill(rect)
 		
-			// Set the color for drawing the red play triangle
-		UIColor.red.setFill()
+			// Set the color for drawing the white play triangle
+		UIColor.white.setFill()
 		
-			// Draw the red play triangle
+			// Draw the white play triangle
 		let trianglePath = UIBezierPath()
 		trianglePath.move(to: CGPoint(x: rect.width * 0.3, y: rect.height * 0.35))
 		trianglePath.addLine(to: CGPoint(x: rect.width * 0.3, y: rect.height * 0.65))
@@ -72,11 +80,19 @@ class YouTubeLogoView: UIView {
 		trianglePath.close()
 		trianglePath.fill()
 		
-			// Set the color for drawing the white rounded rectangle
-		UIColor.white.setFill()
+			// Set the color for drawing the red rounded rectangle
+		UIColor.red.setFill()
 		
-			// Draw the white rounded rectangle
-		let roundedRectPath = UIBezierPath(roundedRect: CGRect(x: rect.width * 0.75, y: rect.height * 0.3, width: rect.width * 0.2, height: rect.height * 0.4), cornerRadius: 8)
+			// Define the corner radius for the rounded rectangle
+		let cornerRadius: CGFloat = 20
+		
+			// Draw the red rounded rectangle
+		let roundedRectPath = UIBezierPath(roundedRect: CGRect(x: rect.width * 0.75, y: rect.height * 0.3, width: rect.width * 0.2, height: rect.height * 0.4), cornerRadius: cornerRadius)
 		roundedRectPath.fill()
 	}
 }
+
+
+
+
+
