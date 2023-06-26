@@ -123,7 +123,7 @@ class FacebookLogoView: UIView {
 class SmileyFaceView: UIView {
 	
 	override func draw(_ rect: CGRect) {
-		guard let context = UIGraphicsGetCurrentContext() else { return }
+		guard UIGraphicsGetCurrentContext() != nil else { return }
 		
 			// Set the fill color for the face
 		UIColor.yellow.setFill()
