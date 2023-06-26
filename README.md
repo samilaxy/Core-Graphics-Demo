@@ -22,3 +22,32 @@
     - Android
         - Creating and manipulating paths using the Path class
         - Drawing custom shapes and curves with Path
+3. Adding Text and Images
+    - Drawing text with custom fonts and styles
+    - Rendering images and icons
+    - Creating image masks and compositing images
+    - Android
+        - Rendering text on the Canvas using the Paint object
+        - Customizing text appearance, alignment, and styles
+4. Gradients and Patterns
+    - Creating linear and radial gradients
+    - Applying gradients to shapes and backgrounds
+    - Using patterns to fill shapes and backgrounds
+    - Android
+        - Bitmap Manipulation
+            - Loading and displaying bitmap images on the Canvas
+            - Applying transformations and effects to bitmaps
+5. Advanced Techniques
+    - Drawing curves and Bezier paths
+    - Applying shadows and blending modes
+    - Working with transparency and opacity
+    - Android
+        - Using shaders for gradients, patterns, and textures
+        - Applying matrix transformations for complex graphics operations
+        - Compositing and Layering
+            - Understanding blending modes for compositing images
+            - Working with layers and transparency in Android graphics
+6. Optimizing Performance
+    - Understanding drawing contexts and layers
+    - Caching and reusing rendered content
+    - Techniques for improving rendering performance
