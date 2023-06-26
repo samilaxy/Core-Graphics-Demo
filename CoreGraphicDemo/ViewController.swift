@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 			// Do any additional setup after loading the view.
 		let youtubeLogo = YouTubeLogoView()
-//		let facebookLogoView = FacebookLogoView()
+		let facebookLogoView = FacebookLogoView()
 //		let smileyFaceView = SmileyFaceView()
 		let logoWidth: CGFloat = 100
 		let logoHeight: CGFloat = 80
@@ -23,8 +23,8 @@ class ViewController: UIViewController {
 		
 		youtubeLogo.frame = CGRect(x: centerX, y: 80, width: logoWidth, height: logoHeight)
 		view.addSubview(youtubeLogo)
-//		facebookLogoView.frame = CGRect(x:  centerX, y: 180, width: logoWidth, height: logoHeight)
-//		view.addSubview(facebookLogoView)
+		facebookLogoView.frame = CGRect(x:  centerX, y: 180, width: logoWidth, height: logoHeight)
+		view.addSubview(facebookLogoView)
 //		smileyFaceView.frame = CGRect(x: centerX, y: 280, width: 100, height: 100)
 //		view.addSubview(smileyFaceView)
 	}
@@ -92,7 +92,33 @@ class YouTubeLogoView: UIView {
 	}
 }
 
-
+class FacebookLogoView: UIView {
+	
+	override func draw(_ rect: CGRect) {
+		guard let context = UIGraphicsGetCurrentContext() else { return }
+		
+			// Set the background color of the view
+		UIColor.blue.setFill()
+		context.fill(rect)
+		
+			// Set the color for drawing the white "f" letter
+		UIColor.white.setFill()
+		
+			// Define the font and size for the "f" letter
+		let fontSize: CGFloat = rect.height * 0.7
+		let font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+		
+			// Create the attributed string for the "f" letter with white color
+		let attributedString = NSAttributedString(string: "f", attributes: [.font: font, .foregroundColor: UIColor.white])
+		
+			// Calculate the size of the "f" letter within the available rect
+		let textRect = attributedString.boundingRect(with: rect.size, options: .usesLineFragmentOrigin, context: nil)
+		
+			// Draw the "f" letter at the center of the view
+		let drawPoint = CGPoint(x: rect.midX - textRect.midX, y: rect.midY - textRect.midY)
+		attributedString.draw(at: drawPoint)
+	}
+}
 
 
 
