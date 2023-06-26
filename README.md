@@ -51,3 +51,17 @@
     - Understanding drawing contexts and layers
     - Caching and reusing rendered content
     - Techniques for improving rendering performance
+7. Practical Examples and Projects
+    - Building a custom chart or graph using Core Graphics
+    - Creating a signature capture view
+    - Implementing a drawing or painting app with Core Graphics
+    - Android
+        - Extending View or SurfaceView for custom graphics rendering
+        - Handling user interactions and updating the canvas dynamically
+8. Best Practices and Tips
+    - Memory management considerations
+    - Error handling and debugging techniques
+    - Resources and references for further learning
+    - Android
+        - Tips and techniques for optimizing graphics performance
+        - Managing memory usage and minimizing redraw operations
