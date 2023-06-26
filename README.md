@@ -61,6 +61,7 @@
 8. Best Practices and Tips
     - Memory management considerations
     - Error handling and debugging techniques
+9. Animations using CoreAnimation / Canvas
     - Resources and references for further learning
     - Android
         - Tips and techniques for optimizing graphics performance
