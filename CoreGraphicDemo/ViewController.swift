@@ -13,8 +13,8 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 			// Do any additional setup after loading the view.
 		let youtubeLogo = YouTubeLogoView()
-		let facebookLogoView = FacebookLogoView()
-		let smileyFaceView = SmileyFaceView()
+//		let facebookLogoView = FacebookLogoView()
+//		let smileyFaceView = SmileyFaceView()
 		let logoWidth: CGFloat = 100
 		let logoHeight: CGFloat = 80
 		
@@ -23,10 +23,10 @@ class ViewController: UIViewController {
 		
 		youtubeLogo.frame = CGRect(x: centerX, y: 80, width: logoWidth, height: logoHeight)
 		view.addSubview(youtubeLogo)
-		facebookLogoView.frame = CGRect(x:  centerX, y: 180, width: logoWidth, height: logoHeight)
-		view.addSubview(facebookLogoView)
-		smileyFaceView.frame = CGRect(x: centerX, y: 280, width: 100, height: 100)
-		view.addSubview(smileyFaceView)
+//		facebookLogoView.frame = CGRect(x:  centerX, y: 180, width: logoWidth, height: logoHeight)
+//		view.addSubview(facebookLogoView)
+//		smileyFaceView.frame = CGRect(x: centerX, y: 280, width: 100, height: 100)
+//		view.addSubview(smileyFaceView)
 	}
 
 }
