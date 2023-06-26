@@ -19,7 +19,7 @@ class ViewController: UIViewController {
 		let logoHeight: CGFloat = 80
 		
 		let centerX = view.bounds.width / 2 - logoWidth / 2
-		let centerY = view.bounds.height / 2 - logoHeight / 2
+		_ = view.bounds.height / 2 - logoHeight / 2
 		
 		youtubeLogo.frame = CGRect(x: centerX, y: 80, width: logoWidth, height: logoHeight)
 		view.addSubview(youtubeLogo)
