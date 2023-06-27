@@ -15,6 +15,9 @@ class ViewController: UIViewController {
 		let youtubeLogo = YouTubeLogoView()
 		let facebookLogoView = FacebookLogoView()
 		let smileyFaceView = SmileyFaceView()
+		let mastercardView = MastercardLogoView()
+		let bbcLogoView = BBCLogoView()
+		let microsoftView = MicrosoftView()
 		let logoWidth: CGFloat = 100
 		let logoHeight: CGFloat = 80
 		
@@ -27,6 +30,12 @@ class ViewController: UIViewController {
 		view.addSubview(facebookLogoView)
 		smileyFaceView.frame = CGRect(x: centerX, y: 280, width: 100, height: 100)
 		view.addSubview(smileyFaceView)
+		mastercardView.frame = CGRect(x: centerX, y: 400, width: 200, height: 100)
+		view.addSubview(mastercardView)
+		bbcLogoView.frame = CGRect(x: centerX, y: 500, width: 150, height: 80)
+		view.addSubview(bbcLogoView)
+		microsoftView.frame = CGRect(x: centerX, y: 600, width: 100, height: 100)
+		view.addSubview(microsoftView)
 	}
 
 }
@@ -154,6 +163,136 @@ class SmileyFaceView: UIView {
 		mouthPath.move(to: CGPoint(x: mouthRect.minX, y: mouthRect.midY))
 		mouthPath.addQuadCurve(to: CGPoint(x: mouthRect.maxX, y: mouthRect.midY), controlPoint: CGPoint(x: rect.midX, y: mouthRect.maxY))
 		mouthPath.stroke()
+	}
+}
+
+class MastercardLogoView: UIView {
+	
+	override func draw(_ rect: CGRect) {
+		guard let context = UIGraphicsGetCurrentContext() else { return }
+		
+			// Set the background color of the view
+		UIColor.white.setFill()
+		context.fill(rect)
+		let yellowCircleRadius = rect.width * 0.20
+			// Set the colors for drawing
+		let redColor = UIColor(red: 222/255, green: 41/255, blue: 44/255, alpha: 1.0)
+		let yellowColor = UIColor(red: 255/255, green: 205/255, blue: 0/255, alpha: 0.85)
+		
+			// Draw the red circles
+		let redCirclePath = UIBezierPath(arcCenter: CGPoint(x: rect.midX - yellowCircleRadius + 10, y: rect.midY), radius: rect.width * 0.20, startAngle: 0, endAngle: .pi * 2, clockwise: true)
+		redColor.setFill()
+		redCirclePath.fill()
+		
+	
+		
+			// Draw the yellow circles
+		let yellowCirclePath = UIBezierPath(arcCenter: CGPoint(x: rect.midX + 25, y: rect.midY), radius: yellowCircleRadius, startAngle: 0, endAngle: .pi * 2, clockwise: true)
+		yellowColor.setFill()
+		yellowCirclePath.fill()
+
+			// Draw the Mastercard logo text
+		let logoText = "mastercard"
+		let logoFont = UIFont.boldSystemFont(ofSize: 24)
+		let logoTextAttributes: [NSAttributedString.Key: Any] = [
+			.foregroundColor: UIColor.white,
+			.font: logoFont
+		]
+		
+		let logoTextSize = logoText.size(withAttributes: logoTextAttributes)
+		let logoTextOrigin = CGPoint(x: rect.midX - logoTextSize.width/2, y: rect.midY - logoTextSize.height/2)
+		logoText.draw(at: logoTextOrigin, withAttributes: logoTextAttributes)
+	}
+}
+
+class MicrosoftView: UIView {
+	
+	override func draw(_ rect: CGRect) {
+		guard let context = UIGraphicsGetCurrentContext() else { return }
+		
+			// Set the background color of the view
+		UIColor.white.setFill()
+		context.fill(rect)
+		
+			// Set the colors for drawing
+		let colors: [UIColor] = [
+			UIColor(red: 218/255, green: 37/255, blue: 28/255, alpha: 1.0), // Red
+			UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0),    // Black
+			UIColor(red: 0/255, green: 157/255, blue: 224/255, alpha: 1.0), // Blue
+			UIColor(red: 247/255, green: 209/255, blue: 25/255, alpha: 1.0)  // Yellow
+		]
+		
+			// Draw the squares
+		let squareSize = rect.width / 3
+		
+		for i in 0..<4 {
+			let row = i / 2
+			let col = i % 2
+			
+			let squareRect = CGRect(x: CGFloat(col) * squareSize, y: CGFloat(row) * squareSize, width: squareSize, height: squareSize)
+			
+			colors[i].setFill()
+			UIRectFill(squareRect)
+		}
+	}
+}
+
+class BBCLogoView: UIView {
+	
+	override func draw(_ rect: CGRect) {
+		guard let context = UIGraphicsGetCurrentContext() else { return }
+		
+			// Set the background color of the view
+		//UIColor.white.setFill()
+		context.fill(rect)
+		
+			// Set the colors for drawing
+		let redColor = UIColor(red: 0.835, green: 0.098, blue: 0.184, alpha: 1.0)
+		let whiteColor = UIColor.white
+		
+			// Calculate the letter size and spacing
+		let letterWidth = rect.width * 0.3
+		let letterHeight = rect.height * 0.5
+		
+			// Draw the first "B" letter
+		let bRect = CGRect(x: 0 , y: rect.height * 0.25, width: letterWidth, height: letterHeight)
+		redColor.setFill()
+		UIRectFill(bRect)
+		
+		let bFont = UIFont.systemFont(ofSize: letterHeight * 0.8, weight: .bold)
+		let bAttributes: [NSAttributedString.Key: Any] = [
+			.font: bFont,
+			.foregroundColor: whiteColor
+		]
+		let bString = NSAttributedString(string: "B", attributes: bAttributes)
+		let bSize = bString.size()
+		let bOrigin = CGPoint(x: bRect.origin.x + (bRect.width - bSize.width) / 2, y: bRect.origin.y + (bRect.height - bSize.height) / 2)
+		bString.draw(at: bOrigin)
+		
+			// Draw the second "B" letter
+		let secondBRect = CGRect(x: rect.width * 0.35, y: rect.height * 0.25, width: letterWidth, height: letterHeight)
+		redColor.setFill()
+		UIRectFill(secondBRect)
+		
+		let secondBString = NSAttributedString(string: "B", attributes: bAttributes)
+		let secondBSize = secondBString.size()
+		let secondBOrigin = CGPoint(x: secondBRect.origin.x + (secondBRect.width - secondBSize.width) / 2, y: secondBRect.origin.y + (secondBRect.height - secondBSize.height) / 2)
+		secondBString.draw(at: secondBOrigin)
+		
+			// Draw the "C" letter
+		let cRect = CGRect(x: rect.width * 0.7, y: rect.height * 0.25, width: letterWidth, height: letterHeight)
+		redColor.setFill()
+		UIRectFill(cRect)
+		
+		let cFont = UIFont.systemFont(ofSize: letterHeight * 0.8, weight: .bold)
+		let cAttributes: [NSAttributedString.Key: Any] = [
+			.font: cFont,
+			.foregroundColor: whiteColor
+		]
+		let cString = NSAttributedString(string: "C", attributes: cAttributes)
+		let cSize = cString.size()
+		let cOrigin = CGPoint(x: cRect.origin.x + (cRect.width - cSize.width) / 2, y: cRect.origin.y + (cRect.height - cSize.height) / 2)
+		cString.draw(at: cOrigin)
 	}
 }
 
