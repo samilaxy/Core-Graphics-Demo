@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 		view.addSubview(mastercardView)
 		bbcLogoView.frame = CGRect(x: centerX, y: 500, width: 150, height: 80)
 		view.addSubview(bbcLogoView)
-		microsoftView.frame = CGRect(x: centerX, y: 600, width: 100, height: 100)
+		microsoftView.frame = CGRect(x: centerX, y: 580, width: 100, height: 100)
 		view.addSubview(microsoftView)
 	}
 
@@ -211,13 +211,13 @@ class MicrosoftView: UIView {
 		guard let context = UIGraphicsGetCurrentContext() else { return }
 		
 			// Set the background color of the view
-		UIColor.white.setFill()
+		//UIColor.white.setFill()
 		context.fill(rect)
 		
 			// Set the colors for drawing
 		let colors: [UIColor] = [
 			UIColor(red: 218/255, green: 37/255, blue: 28/255, alpha: 1.0), // Red
-			UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0),    // Black
+			UIColor(red: 124/255, green: 187/255, blue: 0/255, alpha: 1.0),    // Green
 			UIColor(red: 0/255, green: 157/255, blue: 224/255, alpha: 1.0), // Blue
 			UIColor(red: 247/255, green: 209/255, blue: 25/255, alpha: 1.0)  // Yellow
 		]
