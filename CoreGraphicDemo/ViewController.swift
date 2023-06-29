@@ -87,7 +87,6 @@ class LogoViewController: UIViewController {
 	}
 }
 
-
 class CustomView: UIView {
 	override func draw(_ rect: CGRect) {
 		guard let context = UIGraphicsGetCurrentContext() else {
@@ -125,8 +124,6 @@ class YouTubeLogoView: UIView {
 		UIColor.white.setFill()
 		context.fill(rect)
 		
-	
-		
 			// Set the color for drawing the red rounded rectangle
 		UIColor.red.setFill()
 		
@@ -139,7 +136,7 @@ class YouTubeLogoView: UIView {
 		
 			// Calculate the origin of the rounded rectangle
 		let roundedRectOriginX = rect.width - roundedRectWidth - (rect.width * 0.1)
-		let roundedRectOriginY = rect.height * 0.3
+		let roundedRectOriginY = (rect.height - roundedRectHeight) / 2
 		
 			// Draw the red rounded rectangle
 		let roundedRectPath = UIBezierPath(roundedRect: CGRect(x: roundedRectOriginX, y: roundedRectOriginY, width: roundedRectWidth, height: roundedRectHeight), cornerRadius: cornerRadius)
@@ -153,7 +150,7 @@ class YouTubeLogoView: UIView {
 		let triangleWidth = rect.width * 0.15
 		let triangleHeight = rect.height * 0.1
 		let triangleX = rect.width * 0.45
-		let triangleY = rect.height * 0.35
+		let triangleY = roundedRectOriginY + (roundedRectHeight / 2) - (triangleHeight / 2)
 		
 			// Draw the white play triangle
 		let trianglePath = UIBezierPath()
@@ -164,7 +161,6 @@ class YouTubeLogoView: UIView {
 		trianglePath.fill()
 	}
 }
-
 
 class FacebookLogoView: UIView {
 	
@@ -242,7 +238,6 @@ class SmileyFaceView: UIView {
 	}
 }
 
-
 class MastercardLogoView: UIView {
 	
 	override func draw(_ rect: CGRect) {
@@ -261,8 +256,6 @@ class MastercardLogoView: UIView {
 		redColor.setFill()
 		redCirclePath.fill()
 		
-	
-		
 			// Draw the yellow circles
 		let yellowCirclePath = UIBezierPath(arcCenter: CGPoint(x: rect.midX + 25, y: rect.midY), radius: yellowCircleRadius, startAngle: 0, endAngle: .pi * 2, clockwise: true)
 		yellowColor.setFill()
@@ -270,7 +263,7 @@ class MastercardLogoView: UIView {
 
 			// Draw the Mastercard logo text
 		let logoText = "mastercard"
-		let logoFont = UIFont.boldSystemFont(ofSize: 24)
+		let logoFont = UIFont.boldSystemFont(ofSize: 34)
 		let logoTextAttributes: [NSAttributedString.Key: Any] = [
 			.foregroundColor: UIColor.white,
 			.font: logoFont
@@ -288,31 +281,32 @@ class MicrosoftView: UIView {
 		guard let context = UIGraphicsGetCurrentContext() else { return }
 		
 			// Set the background color of the view
-		//UIColor.white.setFill()
+			// UIColor.white.setFill()
 		context.fill(rect)
 		
 			// Set the colors for drawing
 		let colors: [UIColor] = [
 			UIColor(red: 218/255, green: 37/255, blue: 28/255, alpha: 1.0), // Red
-			UIColor(red: 124/255, green: 187/255, blue: 0/255, alpha: 1.0),    // Green
+			UIColor(red: 124/255, green: 187/255, blue: 0/255, alpha: 1.0), // Green
 			UIColor(red: 0/255, green: 157/255, blue: 224/255, alpha: 1.0), // Blue
-			UIColor(red: 247/255, green: 209/255, blue: 25/255, alpha: 1.0)  // Yellow
+			UIColor(red: 247/255, green: 209/255, blue: 25/255, alpha: 1.0) // Yellow
 		]
 		
 			// Draw the squares
-		let squareSize = rect.width / 3
+		let squareSize = rect.width / 7
 		
 		for i in 0..<4 {
 			let row = i / 2
 			let col = i % 2
 			
-			let squareRect = CGRect(x: CGFloat(col) * squareSize, y: CGFloat(row) * squareSize, width: squareSize, height: squareSize)
+			let squareRect = CGRect(x: (rect.width - squareSize - 60) / 2 + CGFloat(col) * squareSize, y: (rect.height - squareSize) / 2 + CGFloat(row) * squareSize - 30, width: squareSize, height: squareSize)
 			
 			colors[i].setFill()
 			UIRectFill(squareRect)
 		}
 	}
 }
+
 
 class BBCLogoView: UIView {
 	
@@ -328,11 +322,11 @@ class BBCLogoView: UIView {
 		let whiteColor = UIColor.white
 		
 			// Calculate the letter size and spacing
-		let letterWidth = rect.width * 0.3
-		let letterHeight = rect.height * 0.5
+		let letterWidth = rect.width * 0.2
+		let letterHeight = rect.height * 0.1
 		
 			// Draw the first "B" letter
-		let bRect = CGRect(x: 0 , y: rect.height * 0.25, width: letterWidth, height: letterHeight)
+		let bRect = CGRect(x: rect.width * 0.17 , y: rect.height * 0.45, width: letterWidth, height: letterHeight)
 		redColor.setFill()
 		UIRectFill(bRect)
 		
@@ -347,7 +341,7 @@ class BBCLogoView: UIView {
 		bString.draw(at: bOrigin)
 		
 			// Draw the second "B" letter
-		let secondBRect = CGRect(x: rect.width * 0.35, y: rect.height * 0.25, width: letterWidth, height: letterHeight)
+		let secondBRect = CGRect(x: rect.width * 0.42, y: rect.height * 0.45, width: letterWidth, height: letterHeight)
 		redColor.setFill()
 		UIRectFill(secondBRect)
 		
@@ -357,7 +351,7 @@ class BBCLogoView: UIView {
 		secondBString.draw(at: secondBOrigin)
 		
 			// Draw the "C" letter
-		let cRect = CGRect(x: rect.width * 0.7, y: rect.height * 0.25, width: letterWidth, height: letterHeight)
+		let cRect = CGRect(x: rect.width * 0.67, y: rect.height * 0.45, width: letterWidth, height: letterHeight)
 		redColor.setFill()
 		UIRectFill(cRect)
 		
