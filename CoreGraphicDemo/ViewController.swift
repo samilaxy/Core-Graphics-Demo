@@ -179,7 +179,7 @@ class FacebookLogoView: UIView {
 		UIColor.white.setFill()
 		
 			// Define the font and size for the "f" letter
-		let fontSize: CGFloat = rect.height * 0.7
+		let fontSize: CGFloat = rect.height * 0.3
 		let font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
 		
 			// Create the attributed string for the "f" letter with white color
