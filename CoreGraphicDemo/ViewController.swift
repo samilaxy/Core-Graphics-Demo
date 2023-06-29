@@ -281,31 +281,32 @@ class MicrosoftView: UIView {
 		guard let context = UIGraphicsGetCurrentContext() else { return }
 		
 			// Set the background color of the view
-		//UIColor.white.setFill()
+			// UIColor.white.setFill()
 		context.fill(rect)
 		
 			// Set the colors for drawing
 		let colors: [UIColor] = [
 			UIColor(red: 218/255, green: 37/255, blue: 28/255, alpha: 1.0), // Red
-			UIColor(red: 124/255, green: 187/255, blue: 0/255, alpha: 1.0),    // Green
+			UIColor(red: 124/255, green: 187/255, blue: 0/255, alpha: 1.0), // Green
 			UIColor(red: 0/255, green: 157/255, blue: 224/255, alpha: 1.0), // Blue
-			UIColor(red: 247/255, green: 209/255, blue: 25/255, alpha: 1.0)  // Yellow
+			UIColor(red: 247/255, green: 209/255, blue: 25/255, alpha: 1.0) // Yellow
 		]
 		
 			// Draw the squares
-		let squareSize = rect.width / 3
+		let squareSize = rect.width / 7
 		
 		for i in 0..<4 {
 			let row = i / 2
 			let col = i % 2
 			
-			let squareRect = CGRect(x: CGFloat(col) * squareSize, y: CGFloat(row) * squareSize, width: squareSize, height: squareSize)
+			let squareRect = CGRect(x: (rect.width - squareSize - 60) / 2 + CGFloat(col) * squareSize, y: (rect.height - squareSize) / 2 + CGFloat(row) * squareSize - 30, width: squareSize, height: squareSize)
 			
 			colors[i].setFill()
 			UIRectFill(squareRect)
 		}
 	}
 }
+
 
 class BBCLogoView: UIView {
 	
