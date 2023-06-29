@@ -7,37 +7,84 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UIPageViewControllerDataSource {
+	var pageViewController: UIPageViewController!
+	var viewControllers: [LogoViewController] = []
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-			// Do any additional setup after loading the view.
+		
 		let youtubeLogo = YouTubeLogoView()
 		let facebookLogoView = FacebookLogoView()
 		let smileyFaceView = SmileyFaceView()
 		let mastercardView = MastercardLogoView()
 		let bbcLogoView = BBCLogoView()
 		let microsoftView = MicrosoftView()
-		let logoWidth: CGFloat = 100
-		let logoHeight: CGFloat = 80
+		let olympicLogoView = OlympicLogoView()
+		let googleLogoView = GoogleLogoView()
 		
-		let centerX = view.bounds.width / 2 - logoWidth / 2
-		_ = view.bounds.height / 2 - logoHeight / 2
+			// Customize the width and height for each logo view
+		youtubeLogo.frame = CGRect(x: 0, y: 0, width: 50, height: 75)
+		facebookLogoView.frame = CGRect(x: 0, y: 0, width: 120, height: 60)
+		smileyFaceView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+		mastercardView.frame = CGRect(x: 0, y: 0, width: 150, height: 90)
+		bbcLogoView.frame = CGRect(x: 0, y: 0, width: 120, height: 60)
+		microsoftView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+		olympicLogoView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+		googleLogoView.frame = CGRect(x: 0, y: 0, width: 120, height: 120)
 		
-		youtubeLogo.frame = CGRect(x: centerX, y: 80, width: logoWidth, height: logoHeight)
-		view.addSubview(youtubeLogo)
-		facebookLogoView.frame = CGRect(x:  centerX, y: 180, width: logoWidth, height: logoHeight)
-		view.addSubview(facebookLogoView)
-		smileyFaceView.frame = CGRect(x: centerX, y: 280, width: 100, height: 100)
-		view.addSubview(smileyFaceView)
-		mastercardView.frame = CGRect(x: centerX, y: 400, width: 200, height: 100)
-		view.addSubview(mastercardView)
-		bbcLogoView.frame = CGRect(x: centerX, y: 500, width: 150, height: 80)
-		view.addSubview(bbcLogoView)
-		microsoftView.frame = CGRect(x: centerX, y: 580, width: 100, height: 100)
-		view.addSubview(microsoftView)
+		let youtubeLogoVC = LogoViewController(view: youtubeLogo, title: "YouTube")
+		let facebookLogoVC = LogoViewController(view: facebookLogoView, title: "Facebook")
+		let smileyFaceVC = LogoViewController(view: smileyFaceView, title: "Smiley Face")
+		let mastercardVC = LogoViewController(view: mastercardView, title: "Mastercard")
+		let bbcLogoVC = LogoViewController(view: bbcLogoView, title: "BBC")
+		let microsoftVC = LogoViewController(view: microsoftView, title: "Microsoft")
+		let olympicLogoVC = LogoViewController(view: olympicLogoView, title: "Olympic")
+		let googleLogoVC = LogoViewController(view: googleLogoView, title: "Google")
+		
+		viewControllers = [youtubeLogoVC, facebookLogoVC, smileyFaceVC, mastercardVC, bbcLogoVC, microsoftVC, olympicLogoVC, googleLogoVC]
+		
+			// Set up the page view controller
+		pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+		pageViewController.dataSource = self
+		pageViewController.setViewControllers([youtubeLogoVC], direction: .forward, animated: true, completion: nil)
+		
+		addChild(pageViewController)
+		view.addSubview(pageViewController.view)
+		pageViewController.didMove(toParent: self)
 	}
+	
+	func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+		guard let index = viewControllers.firstIndex(where: { $0 === viewController }), index > 0 else {
+			return nil
+		}
+		return viewControllers[index - 1]
+	}
+	
+	func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+		guard let index = viewControllers.firstIndex(where: { $0 === viewController }), index < viewControllers.count - 1 else {
+			return nil
+		}
+		return viewControllers[index + 1]
+	}
+}
 
+class LogoViewController: UIViewController {
+	let logoView: UIView
+	
+	init(view: UIView, title: String) {
+		self.logoView = view
+		super.init(nibName: nil, bundle: nil)
+		self.title = title
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func loadView() {
+		view = logoView
+	}
 }
 
 
@@ -75,19 +122,10 @@ class YouTubeLogoView: UIView {
 		guard let context = UIGraphicsGetCurrentContext() else { return }
 		
 			// Set the background color of the view
-		UIColor.red.setFill()
+		UIColor.white.setFill()
 		context.fill(rect)
 		
-			// Set the color for drawing the white play triangle
-		UIColor.white.setFill()
-		
-			// Draw the white play triangle
-		let trianglePath = UIBezierPath()
-		trianglePath.move(to: CGPoint(x: rect.width * 0.3, y: rect.height * 0.35))
-		trianglePath.addLine(to: CGPoint(x: rect.width * 0.3, y: rect.height * 0.65))
-		trianglePath.addLine(to: CGPoint(x: rect.width * 0.65, y: rect.height * 0.5))
-		trianglePath.close()
-		trianglePath.fill()
+	
 		
 			// Set the color for drawing the red rounded rectangle
 		UIColor.red.setFill()
@@ -95,11 +133,38 @@ class YouTubeLogoView: UIView {
 			// Define the corner radius for the rounded rectangle
 		let cornerRadius: CGFloat = 20
 		
+			// Define the width and height of the rounded rectangle
+		let roundedRectWidth = rect.width * 0.8
+		let roundedRectHeight = rect.height * 0.2
+		
+			// Calculate the origin of the rounded rectangle
+		let roundedRectOriginX = rect.width - roundedRectWidth - (rect.width * 0.1)
+		let roundedRectOriginY = rect.height * 0.3
+		
 			// Draw the red rounded rectangle
-		let roundedRectPath = UIBezierPath(roundedRect: CGRect(x: rect.width * 0.75, y: rect.height * 0.3, width: rect.width * 0.2, height: rect.height * 0.4), cornerRadius: cornerRadius)
+		let roundedRectPath = UIBezierPath(roundedRect: CGRect(x: roundedRectOriginX, y: roundedRectOriginY, width: roundedRectWidth, height: roundedRectHeight), cornerRadius: cornerRadius)
 		roundedRectPath.fill()
+		
+		
+			// Set the color for drawing the white play triangle
+		UIColor.white.setFill()
+		
+			// Define the size and position of the play triangle
+		let triangleWidth = rect.width * 0.15
+		let triangleHeight = rect.height * 0.1
+		let triangleX = rect.width * 0.45
+		let triangleY = rect.height * 0.35
+		
+			// Draw the white play triangle
+		let trianglePath = UIBezierPath()
+		trianglePath.move(to: CGPoint(x: triangleX, y: triangleY))
+		trianglePath.addLine(to: CGPoint(x: triangleX, y: triangleY + triangleHeight))
+		trianglePath.addLine(to: CGPoint(x: triangleX + triangleWidth, y: triangleY + (triangleHeight / 2)))
+		trianglePath.close()
+		trianglePath.fill()
 	}
 }
+
 
 class FacebookLogoView: UIView {
 	
@@ -296,3 +361,75 @@ class BBCLogoView: UIView {
 	}
 }
 
+class OlympicLogoView: UIView {
+	
+	override func draw(_ rect: CGRect) {
+		guard let context = UIGraphicsGetCurrentContext() else { return }
+		
+			// Set the background color of the view
+		UIColor.white.setFill()
+		context.fill(rect)
+		
+			// Define the colors of the Olympic rings
+		let colors: [UIColor] = [.blue, .black, .red, .yellow, .green]
+		
+			// Calculate the ring properties
+		let ringRadius = min(rect.width, rect.height) * 0.4
+		let ringThickness = ringRadius * 0.2
+		let ringCenterX = rect.midX
+		let ringCenterY = rect.midY
+		
+			// Draw each ring
+		for (index, color) in colors.enumerated() {
+				// Calculate the ring position and rect
+			let angle = CGFloat(index) * (CGFloat.pi * 2 / CGFloat(colors.count))
+			let ringX = ringCenterX + cos(angle) * (ringRadius - ringThickness/2)
+			let ringY = ringCenterY + sin(angle) * (ringRadius - ringThickness/2)
+			let ringRect = CGRect(x: ringX - ringRadius, y: ringY - ringRadius, width: ringRadius * 2, height: ringRadius * 2)
+			
+				// Draw the ring
+			context.setFillColor(color.cgColor)
+			context.setStrokeColor(UIColor.white.cgColor)
+			context.setLineWidth(ringThickness)
+			context.addEllipse(in: ringRect)
+			context.drawPath(using: .fillStroke)
+		}
+	}
+}
+
+class GoogleLogoView: UIView {
+	
+	override func draw(_ rect: CGRect) {
+		guard let context = UIGraphicsGetCurrentContext() else { return }
+		
+			// Set the background color of the view
+		UIColor.white.setFill()
+		context.fill(rect)
+		
+			// Set the colors for drawing
+		let redColor = UIColor(red: 0.863, green: 0.196, blue: 0.184, alpha: 1.0)
+		let blueColor = UIColor(red: 0.114, green: 0.403, blue: 0.717, alpha: 1.0)
+		let yellowColor = UIColor(red: 0.976, green: 0.757, blue: 0.063, alpha: 1.0)
+		let greenColor = UIColor(red: 0.341, green: 0.643, blue: 0.267, alpha: 1.0)
+		
+			// Draw the "G" letter
+		let gRect = CGRect(x: rect.width * 0.2, y: rect.height * 0.2, width: rect.width * 0.6, height: rect.height * 0.6)
+		redColor.setFill()
+		UIRectFill(gRect)
+		
+			// Draw the "o" letter
+		let oRect = CGRect(x: rect.width * 0.4, y: rect.height * 0.4, width: rect.width * 0.2, height: rect.height * 0.2)
+		blueColor.setFill()
+		context.fillEllipse(in: oRect)
+		
+			// Draw the "o" letter
+		let secondORect = CGRect(x: rect.width * 0.25, y: rect.height * 0.25, width: rect.width * 0.5, height: rect.height * 0.5)
+		yellowColor.setFill()
+		context.fillEllipse(in: secondORect)
+		
+			// Draw the "g" letter
+		let secondGRect = CGRect(x: rect.width * 0.35, y: rect.height * 0.35, width: rect.width * 0.3, height: rect.height * 0.3)
+		greenColor.setFill()
+		UIRectFill(secondGRect)
+	}
+}
