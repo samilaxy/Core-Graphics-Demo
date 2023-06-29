@@ -202,34 +202,46 @@ class SmileyFaceView: UIView {
 			// Set the fill color for the face
 		UIColor.yellow.setFill()
 		
+			// Define the size of the face
+		let faceSize = CGSize(width: 100, height: 100)
+		
+			// Calculate the origin of the face to center it
+		let faceOrigin = CGPoint(x: rect.midX - faceSize.width/2, y: rect.midY - faceSize.height/2)
+		
 			// Draw the face (a yellow circle)
-		let facePath = UIBezierPath(ovalIn: rect)
+		let facePath = UIBezierPath(ovalIn: CGRect(origin: faceOrigin, size: faceSize))
 		facePath.fill()
 		
 			// Set the stroke color for the eyes and mouth
 		UIColor.black.setStroke()
 		
-			// Draw the eyes (two black circles)
-		let eyeRadius = rect.width * 0.1
-		let leftEyeCenter = CGPoint(x: rect.midX - rect.width * 0.2, y: rect.midY - rect.height * 0.2)
-		let rightEyeCenter = CGPoint(x: rect.midX + rect.width * 0.2, y: rect.midY - rect.height * 0.2)
+			// Define the size of the eyes
+		let eyeRadius = faceSize.width * 0.07
 		
+			// Calculate the center positions of the eyes
+		let leftEyeCenter = CGPoint(x: faceOrigin.x + faceSize.width * 0.3, y: faceOrigin.y + faceSize.height * 0.3)
+		let rightEyeCenter = CGPoint(x: faceOrigin.x + faceSize.width * 0.7, y: faceOrigin.y + faceSize.height * 0.3)
+		
+			// Draw the eyes (two black circles)
 		let leftEyePath = UIBezierPath(arcCenter: leftEyeCenter, radius: eyeRadius, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
 		let rightEyePath = UIBezierPath(arcCenter: rightEyeCenter, radius: eyeRadius, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
 		
 		leftEyePath.stroke()
 		rightEyePath.stroke()
 		
+			// Define the size and position of the mouth
+		let mouthWidth = faceSize.width * 0.4
+		let mouthHeight = faceSize.height * 0.2
+		let mouthRect = CGRect(x: faceOrigin.x + faceSize.width * 0.3, y: faceOrigin.y + faceSize.height * 0.6, width: mouthWidth, height: mouthHeight)
+		
 			// Draw the mouth (smile)
 		let mouthPath = UIBezierPath()
-		let mouthWidth = rect.width * 0.3
-		let mouthHeight = rect.height * 0.2
-		let mouthRect = CGRect(x: rect.midX - mouthWidth/2, y: rect.midY + rect.height * 0.1, width: mouthWidth, height: mouthHeight)
 		mouthPath.move(to: CGPoint(x: mouthRect.minX, y: mouthRect.midY))
-		mouthPath.addQuadCurve(to: CGPoint(x: mouthRect.maxX, y: mouthRect.midY), controlPoint: CGPoint(x: rect.midX, y: mouthRect.maxY))
+		mouthPath.addQuadCurve(to: CGPoint(x: mouthRect.maxX, y: mouthRect.midY), controlPoint: CGPoint(x: faceOrigin.x + faceSize.width * 0.5, y: mouthRect.maxY))
 		mouthPath.stroke()
 	}
 }
+
 
 class MastercardLogoView: UIView {
 	
